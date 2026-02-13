@@ -568,6 +568,22 @@ def load_tatiana_songs():
                     'char_count': len(lyrics_text),
                 })
 
+    # Add You Make Me (take first valid lyrics row only)
+    ym_path = "Testing lyrics /You  make me  - Sheet1.csv"
+    if os.path.exists(ym_path):
+        ym_df = pd.read_csv(ym_path)
+        ym_added = False
+        for _, row in ym_df.iterrows():
+            lyric_val = row.get('Lyric') or row.get(row.keys()[2]) if len(row.keys()) > 2 else None
+            if not ym_added and lyric_val is not None and pd.notna(lyric_val) and len(str(lyric_val)) > 50:
+                lyrics_text = str(lyric_val).replace('\\n', '\n').strip()
+                new_rows.append({
+                    'artist': 'Tatiana DeMaria', 'song': 'You Make Me',
+                    'lyrics': lyrics_text, 'word_count': len(lyrics_text.split()),
+                    'char_count': len(lyrics_text),
+                })
+                ym_added = True
+
     tatiana = pd.concat([tatiana, pd.DataFrame(new_rows)], ignore_index=True)
     return tatiana
 
@@ -736,14 +752,15 @@ with tab5:
         'Song': [
             'What It Is About You', 'London Don\'t Lie', 'Too Much', 'Without You',
             'Make Me Feel', 'Anxiety - Acoustic', 'Alcohol, Weed and Sex',
-            'Born Again Sinner', 'Fresh Meat', 'Gallery', 'Save Me', 'Beirut Fire'
+            'Born Again Sinner', 'Fresh Meat', 'Gallery', 'Save Me', 'Beirut Fire',
+            'You Make Me'
         ],
-        'v1': [40.0, 96.7, 17.4, 44.4, 97.4, 93.1, 19.8, 88.9, 16.4, 16.3, 8.8, 18.1],
-        'v2': [67.5, 15.4, 85.4, 51.4, 43.5, 29.1, 55.2, 76.4, 93.3, 57.1, 95.4, 43.2],
-        'v3': [54.6, 51.2, 69.6, 47.9, 61.7, 61.9, 37.0, 67.4, 48.5, 40.7, 43.0, 37.7],
-        'v4': [52.0, 51.0, 58.0, 53.9, 63.7, 51.0, 52.7, 50.6, 51.7, 42.8, 47.4, 34.7],
-        'v5': [64.6, 52.1, 64.5, 67.6, 69.6, 68.6, 61.2, 65.9, 71.6, 60.3, 56.9, 50.8],
-        'v6': [58.8, 57.7, 55.7, 55.8, 64.1, 53.0, 40.6, 50.6, 53.0, 45.0, 50.3, 35.3],
+        'v1': [40.0, 96.7, 17.4, 44.4, 97.4, 93.1, 19.8, 88.9, 16.4, 16.3, 8.8, 18.1, 3.5],
+        'v2': [67.5, 15.4, 85.4, 51.4, 43.5, 29.1, 55.2, 76.4, 93.3, 57.1, 95.4, 43.2, 7.2],
+        'v3': [54.6, 51.2, 69.6, 47.9, 61.7, 61.9, 37.0, 67.4, 48.5, 40.7, 43.0, 37.7, 30.8],
+        'v4': [52.0, 51.0, 58.0, 53.9, 63.7, 51.0, 52.7, 50.6, 51.7, 42.8, 47.4, 34.7, 59.3],
+        'v5': [64.6, 52.1, 64.5, 67.6, 69.6, 68.6, 61.2, 65.9, 71.6, 60.3, 56.9, 50.8, 48.3],
+        'v6': [58.8, 57.7, 55.7, 55.8, 64.1, 53.0, 40.6, 50.6, 53.0, 45.0, 50.3, 35.3, 59.7],
     }
     comp_df = pd.DataFrame(comparison_data)
     version_cols = ['v1', 'v2', 'v3', 'v4', 'v5', 'v6']

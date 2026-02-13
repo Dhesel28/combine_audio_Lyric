@@ -575,6 +575,23 @@ for _, row in bf_df.iterrows():
             'char_count': len(lyrics_text),
         })
 
+# Add You Make Me from CSV (take first valid lyrics row only)
+ym_df = pd.read_csv("Testing lyrics /You  make me  - Sheet1.csv")
+ym_added = False
+for _, row in ym_df.iterrows():
+    lyric_val = row.get('Lyric') or row.get(row.keys()[2]) if len(row.keys()) > 2 else None
+    if not ym_added and lyric_val is not None and pd.notna(lyric_val) and len(str(lyric_val)) > 50:
+        lyrics_text = str(lyric_val).replace('\\n', '\n').strip()
+        words = lyrics_text.split()
+        new_rows.append({
+            'artist': 'Tatiana DeMaria',
+            'song': 'You Make Me',
+            'lyrics': lyrics_text,
+            'word_count': len(words),
+            'char_count': len(lyrics_text),
+        })
+        ym_added = True
+
 tatiana = pd.concat([tatiana, pd.DataFrame(new_rows)], ignore_index=True)
 print(f"\nTotal Tatiana songs: {len(tatiana)}")
 
