@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.DS_Store
+.idea/
+
+# API keys
+.env
+*.env
+
+# Large intermediate data files
+data/catalog_with_lyrics.csv
+data/test_catalog.csv
+
+# Chat logs
+CHAT_HISTORY.md

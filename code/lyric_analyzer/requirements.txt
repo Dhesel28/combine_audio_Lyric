@@ -1,0 +1,6 @@
+pandas
+numpy
+vaderSentiment
+pyphen
+lyricsgenius
+python-dotenv

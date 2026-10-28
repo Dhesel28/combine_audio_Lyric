@@ -1,3 +1,30 @@
 __pycache__/
 *.pyc
 .DS_Store
+.idea/
+
+# API keys — never commit
+.env
+*.env
+
+# Trained model binaries (regenerate with train.py)
+tiktok_trend/models/*.pkl
+code/tiktok_trend/models/*.pkl
+code/viral_lyrics_analyzer/models/*.pkl
+
+# Large lyrics catalog (regenerate with pipeline.py --build)
+tiktok_trend/data/catalog_with_lyrics.csv
+code/tiktok_trend/data/catalog_with_lyrics.csv
+
+# Raw data caches (large, regenerate with fetch scripts)
+data/lyrics_fetch_cache.json
+data/lyrics/lyrics_cache.csv
+code/tiktok_virality/data/raw/lyrics_cache.csv
+code/tiktok_virality/data/raw/tiktok_with_lyrics.csv
+
+# Local IDE / OS files
+.Rhistory
+
+# Chat history logs
+CHAT_HISTORY.md
+tiktok_trend/CHAT_HISTORY.md
